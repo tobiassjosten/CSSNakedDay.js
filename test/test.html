@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CSSNakedDay.js</title>
+
+    <!-- Stylesheets before script -->
+    <link rel="stylesheet" type="text/css" href="test1.css" media="all">
+    <style>
+        body { background: red; }
+    </style>
+</head>
+<body style="background: cyan;"> <!-- Inline style -->
+    <p>Running…</p>
+
+    <!-- External script with onload callback -->
+    <script type="text/javascript" src="test.js"></script>
+
+    <script type="text/javascript" src="../CSSNakedDay.js"></script>
+
+    <!-- "Test suite" -->
+    <script type="text/javascript">
+        // Test if 1) old onload has been run and 2) background is naked.
+        (function () {
+            var oldOnload = window.onload;
+            window.onload = function () {
+                if (oldOnload) { oldOnload(); }
+
+                var p = document.getElementsByTagName('p')[0],
+                    body = document.getElementsByTagName('body')[0],
+                    bodyBg = body.style.backgroundColor !== '',
+                    today = new Date();
+
+                p.innerHTML = !gTest || bodyBg
+                    ? 'Fails!'
+                    : 'Works!';
+
+                if (bodyBg && (today.getDate() !== 9 || today.getMonth() !== 3)) {
+                    p.innerHTML += " But then again, it's not CSS Naked Day today (April 9th).";
+                }
+            };
+        }());
+    </script>
+
+    <!-- Stylesheets after script -->
+    <style>
+        body { background: green; }
+    </style>
+    <link rel="stylesheet" type="text/css" href="test2.css" media="all">
+</body>
+</html>
+
