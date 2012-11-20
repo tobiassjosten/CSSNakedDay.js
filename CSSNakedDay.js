@@ -22,7 +22,7 @@
         oldOnload = window.onload;
 
     // Halt if it's not CSS Naked Day today (April 9th).
-    if (today.getDate() !== 9 || today.getMonth() !== 3) {
+    if (today.getDate() !== 9 && today.getMonth() !== 4) {
         return;
     }
 
